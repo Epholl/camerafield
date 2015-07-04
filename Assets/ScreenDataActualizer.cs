@@ -20,7 +20,7 @@ public class ScreenDataActualizer : MonoBehaviour {
 		textZ.text = "Offset Z: " + mainCamera.transform.position.z;
 		textY.text = "Altitude: " + mainCamera.transform.position.y;
 		textHeading.text = "Hdg: " + mainCamera.transform.rotation.eulerAngles.y;
-		textPitch.text = "Pitch: " + mainCamera.transform.rotation.eulerAngles.z;
+		textPitch.text = "Pitch: " + mainCamera.transform.eulerAngles.x;
 		textFOV.text = "FOV: " + mainCamera.fieldOfView;
 	}
 }
