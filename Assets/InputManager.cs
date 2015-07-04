@@ -3,8 +3,10 @@ using System.Collections;
 
 public class InputManager : MonoBehaviour {
 
-	public static float ROTATION_SPEED = 50f;
+	public static float ROTATION_SPEED = 120f;
 	public static float MOVEMENT_SPEED = 0.5f;
+
+	private float multiplier = 1f;
 
 	public Camera mainCamera;
 
@@ -26,10 +28,11 @@ public class InputManager : MonoBehaviour {
 		if (Input.GetKey ("right") || Input.GetKey("d")) {
 			x++;
 		}
-
-		Vector3 movementVector = new Vector3 (x, y, z);
-
-		mainCamera.transform.Translate(movementVector * MOVEMENT_SPEED);
+		if (Input.GetKey ("left shift")) {
+			multiplier = 0.2f;
+		} else {
+			multiplier = 1f;
+		}
 
 		float hdg = 0f;
 		if (Input.GetKey ("q")) {
@@ -39,6 +42,7 @@ public class InputManager : MonoBehaviour {
 			hdg = ROTATION_SPEED;
 		}
 
-		mainCamera.transform.Rotate(new Vector3(0f, hdg, 0f) * Time.fixedDeltaTime);
+		mainCamera.transform.Translate(new Vector3 (x, y, z) * MOVEMENT_SPEED * multiplier);
+		mainCamera.transform.Rotate(new Vector3(0f, hdg, 0f) * Time.fixedDeltaTime * multiplier);
 	}
 }
