@@ -21,6 +21,24 @@ public class ScreenDataActualizer : MonoBehaviour {
 		textY.text = "Altitude: " + mainCamera.transform.position.y;
 		textHeading.text = "Hdg: " + mainCamera.transform.rotation.eulerAngles.y;
 		textPitch.text = "Pitch: " + mainCamera.transform.eulerAngles.x;
-		textFOV.text = "FOV: " + mainCamera.fieldOfView;
+		textFOV.text = "FOV: " + mainCamera.fieldOfView + " (V), " + Round(GetHorizontalCameraFOV(), 1) + " (H).";
+	}
+
+	private float GetHorizontalCameraFOV() {
+		float verticalFOV = (mainCamera.fieldOfView / 180) * Mathf.PI;
+		float aspect = GetAspectRatio();
+
+		float radianFOV = 2 * Mathf.Atan(Mathf.Tan(verticalFOV / 2) * aspect);
+		return radianFOV * 180 / Mathf.PI;
+	}
+
+	private float GetAspectRatio() {
+		return mainCamera.pixelWidth / mainCamera.pixelHeight;
+	}
+
+	private float Round(float rounded, int decimalPlaces) {
+		int multiplier = (int) Mathf.Pow (10, decimalPlaces);
+
+		return Mathf.Round (rounded * multiplier) / multiplier;
 	}
 }
