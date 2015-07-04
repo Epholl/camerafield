@@ -12,6 +12,7 @@ public class ScreenDataActualizer : MonoBehaviour {
 	public Text textHeading;
 	public Text textPitch;
 	public Text textFOV;
+	public Text textScreenRes;
 
 	// Update is called once per frame
 	void Update () {
@@ -22,6 +23,7 @@ public class ScreenDataActualizer : MonoBehaviour {
 		textHeading.text = "Hdg: " + mainCamera.transform.rotation.eulerAngles.y;
 		textPitch.text = "Pitch: " + mainCamera.transform.eulerAngles.x;
 		textFOV.text = "FOV: " + mainCamera.fieldOfView + " (V), " + Round(GetHorizontalCameraFOV(), 1) + " (H).";
+		textScreenRes.text = "Screen: " + mainCamera.pixelWidth + " x " + mainCamera.pixelHeight;
 	}
 
 	private float GetHorizontalCameraFOV() {
