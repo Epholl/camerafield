@@ -3,7 +3,7 @@ using System.Collections;
 
 public class InputManager : MonoBehaviour {
 
-	public static float ROTATION_SPEED = 0.8f;
+	public static float ROTATION_SPEED = 1f;
 	public static float MOVEMENT_SPEED = 0.5f;
 
 	private float multiplier = 1f;
@@ -56,7 +56,12 @@ public class InputManager : MonoBehaviour {
 			pitch--;
 		}
 
-		mainCamera.transform.Translate(new Vector3 (x, y, z) * MOVEMENT_SPEED * multiplier);
+		float cameraY = mainCamera.transform.position.y;
+		mainCamera.transform.Translate(new Vector3 (x, 0f, z) * MOVEMENT_SPEED * multiplier);
+
+		Vector3 newPosition = mainCamera.transform.position;
+		newPosition.y = cameraY + y * MOVEMENT_SPEED * multiplier;
+		mainCamera.transform.position = newPosition;
 		mainCamera.transform.Rotate(new Vector3(0f, hdg, 0f) * ROTATION_SPEED * multiplier, Space.World);
 		mainCamera.transform.Rotate(new Vector3(pitch, 0f, 0f) * ROTATION_SPEED * multiplier, Space.Self);
 	}
